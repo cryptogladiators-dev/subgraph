@@ -8,8 +8,8 @@ dataSources:
     name: Bep20Token
     network: bsc
     source:
-      address: "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56"
       abi: Bep20Token
+      address: "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56"
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -19,7 +19,7 @@ dataSources:
         - WithdrawalTransaction
       abis:
         - name: Bep20Token
-          file: ./abi/Bep20Token.json
+          file: ./contracts/abi/Bep20Token.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
