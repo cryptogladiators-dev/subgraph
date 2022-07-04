@@ -86,15 +86,6 @@
   {
     "constant": true,
     "inputs": [],
-    "name": "_name",
-    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
     "name": "_symbol",
     "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
     "payable": false,

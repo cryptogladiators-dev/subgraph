@@ -1,8 +1,10 @@
-specVersion: 0.0.1
+specVersion: 0.0.4
+description: CryptoGladiators Explorer
+repository: https://github.com/cryptogladiators-dev/subgraph
 schema:
   file: ./schema.graphql
 dataSources:
-  - kind: ethereum
+  - kind: ethereum/contract
     name: Bep20Token
     network: bsc
     source:
@@ -13,17 +15,12 @@ dataSources:
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - Approval
-        - OwnershipTransferred
-        - Transfer
+        - DepositTransaction
+        - WithdrawalTransaction
       abis:
         - name: Bep20Token
-          file: ./abis/Bep20Token.json
+          file: ./abi/Bep20Token.json
       eventHandlers:
-        - event: Approval(indexed address,indexed address,uint256)
-          handler: handleApproval
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/bep-20-token.ts
+      file: ./src/busd-transaction.ts

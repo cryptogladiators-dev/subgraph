@@ -1,6 +1,15 @@
-type ExampleEntity @entity {
+type Player @entity {
   id: ID!
-  count: BigInt!
-  owner: Bytes! # address
-  spender: Bytes! # address
+}
+
+type DepositTransaction @entity {
+  id: ID!
+  value: BigInt!
+  player: Player!
+}
+
+type WithdrawalTransaction @entity {
+  id: ID!
+  value: BigInt!
+  player: Player!
 }
