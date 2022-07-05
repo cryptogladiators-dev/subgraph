@@ -1,5 +1,7 @@
 FROM node:fermium-alpine
 
+RUN apk add git
+
 RUN mkdir -p /opt/app
 WORKDIR /opt/app
 COPY package.json ./
