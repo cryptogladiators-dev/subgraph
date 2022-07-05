@@ -5,10 +5,10 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: Bep20Token
+    name: BEP20Token
     network: bsc
     source:
-      abi: Bep20Token
+      abi: BEP20Token
       address: "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56"
     mapping:
       kind: ethereum/events
@@ -18,8 +18,8 @@ dataSources:
         - DepositTransaction
         - WithdrawalTransaction
       abis:
-        - name: Bep20Token
-          file: ./contracts/abi/Bep20Token.json
+        - name: BEP20Token
+          file: ./contracts/abi/BEP20Token.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer

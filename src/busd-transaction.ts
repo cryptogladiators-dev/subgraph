@@ -1,5 +1,5 @@
 import { Address, BigInt } from "@graphprotocol/graph-ts";
-import { Transfer } from "../generated/Bep20Token/Bep20Token";
+import { Transfer } from "../generated/BEP20Token/BEP20Token";
 import {
   DepositTransaction,
   Player,
