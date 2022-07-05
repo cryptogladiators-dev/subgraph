@@ -2,14 +2,9 @@ type Player @entity {
   id: ID!
 }
 
-type DepositTransaction @entity {
+type BUSDTransaction @entity(immutable: true) {
   id: ID!
   value: BigInt!
   player: Player!
-}
-
-type WithdrawalTransaction @entity {
-  id: ID!
-  value: BigInt!
-  player: Player!
+  isWithdrawal: Boolean!
 }
