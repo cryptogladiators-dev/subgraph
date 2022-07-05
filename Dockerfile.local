@@ -12,4 +12,4 @@ COPY . .
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.9.0/wait /wait
 RUN chmod +x /wait
 
-CMD [ "sh", "-c", "/wait && yarn clean && yarn codegen && yarn build --network localhost --network-file ./contracts/networks.json && yarn create && yarn deploy" ]
+CMD [ "sh", "-c", "/wait && yarn clean && yarn codegen && yarn build --network localhost --network-file ./contracts/networks.json && yarn create:env && yarn deploy:env" ]
