@@ -8,3 +8,13 @@ type BUSDTransaction @entity(immutable: true) {
   player: Player!
   isWithdrawal: Boolean!
 }
+
+type ItemTransaction @entity(immutable: true) {
+  id: ID!
+  from: Player!
+  to: Player!
+  items: [BigInt!]!
+  values: [BigInt!]!
+  isBatch: Boolean!
+  isGameTransaction: Boolean!
+}
