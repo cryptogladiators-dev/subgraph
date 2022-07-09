@@ -1,4 +1,4 @@
-type Player @entity {
+type Player @entity(immutable: true) {
   id: ID!
 }
 
