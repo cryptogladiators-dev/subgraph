@@ -5,7 +5,6 @@ import { BUCKET_WALLET_ADDRESSES } from "./constants";
 import * as player from "./player";
 
 export function handleTransfer(event: Transfer): void {
-  let p: Player;
   let isGameTransaction = false;
   let isWithdrawal = false;
 
@@ -15,8 +14,8 @@ export function handleTransfer(event: Transfer): void {
         event.params.from
       )
     ) {
-      isGameTransaction = true;
       isWithdrawal = true;
+      isGameTransaction = true;
       break;
     } else if (
       Address.fromHexString(BUCKET_WALLET_ADDRESSES[i]).equals(event.params.to)
@@ -30,11 +29,10 @@ export function handleTransfer(event: Transfer): void {
     return;
   }
 
-  if (isWithdrawal) {
-    p = player.loadOrCreate(event.params.to);
-  } else {
-    p = player.loadOrCreate(event.params.from);
-  }
+  const playerAddress: Address = isWithdrawal
+    ? event.params.to
+    : event.params.from;
+  const p: Player = player.loadOrCreate(playerAddress);
 
   const transaction = new BUSDTransaction(event.transaction.hash.toHex());
   transaction.player = p.id;
