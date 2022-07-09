@@ -5,11 +5,11 @@ import {
 } from "../generated/CryptoGladiatorsItems/CryptoGladiatorsItems";
 import { ItemTransaction, Player } from "../generated/schema";
 import { BUCKET_WALLET_ADDRESSES } from "./constants";
-import * as player from "./player";
+import { loadOrCreatePlayer } from "./helpers/player";
 
 export function handleTransferSingle(event: TransferSingle): void {
-  const from: Player = player.loadOrCreate(event.params.from);
-  const to: Player = player.loadOrCreate(event.params.to);
+  const from: Player = loadOrCreatePlayer(event.params.from);
+  const to: Player = loadOrCreatePlayer(event.params.to);
   let isGameTransaction = false;
 
   for (let i = 0; i < BUCKET_WALLET_ADDRESSES.length; i++) {
@@ -38,8 +38,8 @@ export function handleTransferSingle(event: TransferSingle): void {
 }
 
 export function handleTransferBatch(event: TransferBatch): void {
-  const from: Player = player.loadOrCreate(event.params.from);
-  const to: Player = player.loadOrCreate(event.params.to);
+  const from: Player = loadOrCreatePlayer(event.params.from);
+  const to: Player = loadOrCreatePlayer(event.params.to);
   let isGameTransaction = false;
 
   for (let i = 0; i < BUCKET_WALLET_ADDRESSES.length; i++) {
