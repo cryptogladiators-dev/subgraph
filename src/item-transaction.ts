@@ -1,4 +1,3 @@
-import { Address } from "@graphprotocol/graph-ts";
 import {
   TransferBatch,
   TransferSingle,
@@ -10,22 +9,9 @@ import { loadOrCreatePlayer } from "./helpers/player";
 export function handleTransferSingle(event: TransferSingle): void {
   const from: Player = loadOrCreatePlayer(event.params.from);
   const to: Player = loadOrCreatePlayer(event.params.to);
-  let isGameTransaction = false;
-
-  for (let i = 0; i < BUCKET_WALLET_ADDRESSES.length; i++) {
-    if (
-      Address.fromHexString(BUCKET_WALLET_ADDRESSES[i]).equals(
-        event.params.from
-      )
-    ) {
-      isGameTransaction = true;
-      break;
-    }
-  }
-
-  if (!isGameTransaction) {
-    return;
-  }
+  const isGameTransaction = !!BUCKET_WALLET_ADDRESSES.includes(
+    event.params.from.toHexString()
+  );
 
   const transaction = new ItemTransaction(event.transaction.hash.toHex());
   transaction.from = from.id;
@@ -40,22 +26,9 @@ export function handleTransferSingle(event: TransferSingle): void {
 export function handleTransferBatch(event: TransferBatch): void {
   const from: Player = loadOrCreatePlayer(event.params.from);
   const to: Player = loadOrCreatePlayer(event.params.to);
-  let isGameTransaction = false;
-
-  for (let i = 0; i < BUCKET_WALLET_ADDRESSES.length; i++) {
-    if (
-      Address.fromHexString(BUCKET_WALLET_ADDRESSES[i]).equals(
-        event.params.from
-      )
-    ) {
-      isGameTransaction = true;
-      break;
-    }
-  }
-
-  if (!isGameTransaction) {
-    return;
-  }
+  const isGameTransaction = !!BUCKET_WALLET_ADDRESSES.includes(
+    event.params.from.toHexString()
+  );
 
   const transaction = new ItemTransaction(event.transaction.hash.toHex());
   transaction.from = from.id;

@@ -8,21 +8,11 @@ export function handleTransfer(event: Transfer): void {
   let isGameTransaction = false;
   let isWithdrawal = false;
 
-  for (let i = 0; i < BUCKET_WALLET_ADDRESSES.length; i++) {
-    if (
-      Address.fromHexString(BUCKET_WALLET_ADDRESSES[i]).equals(
-        event.params.from
-      )
-    ) {
-      isWithdrawal = true;
-      isGameTransaction = true;
-      break;
-    } else if (
-      Address.fromHexString(BUCKET_WALLET_ADDRESSES[i]).equals(event.params.to)
-    ) {
-      isGameTransaction = true;
-      break;
-    }
+  if (BUCKET_WALLET_ADDRESSES.includes(event.params.from.toHexString())) {
+    isGameTransaction = true;
+    isWithdrawal = true;
+  } else if (BUCKET_WALLET_ADDRESSES.includes(event.params.to.toHexString())) {
+    isGameTransaction = true;
   }
 
   if (!isGameTransaction) {
