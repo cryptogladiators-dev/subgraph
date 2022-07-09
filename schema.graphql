@@ -17,6 +17,8 @@ type BUSDTransaction @entity(immutable: true) {
   value: BigInt!
   player: Player!
   type: BUSDTransactionType!
+  createdAt: BigInt!
+  blockNumber: Int!
 }
 
 type ItemTransaction @entity(immutable: true) {
@@ -27,4 +29,6 @@ type ItemTransaction @entity(immutable: true) {
   values: [BigInt!]!
   type: ItemTransactionType!
   isGameTransaction: Boolean!
+  createdAt: BigInt!
+  blockNumber: Int!
 }

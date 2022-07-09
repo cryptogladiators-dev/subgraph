@@ -20,6 +20,8 @@ export function handleTransferSingle(event: TransferSingle): void {
   transaction.values = [event.params.value];
   transaction.type = "SINGLE";
   transaction.isGameTransaction = isGameTransaction;
+  transaction.createdAt = event.block.timestamp;
+  transaction.blockNumber = event.block.number.toI32();
   transaction.save();
 }
 
@@ -37,5 +39,7 @@ export function handleTransferBatch(event: TransferBatch): void {
   transaction.values = event.params.values;
   transaction.type = "BATCH";
   transaction.isGameTransaction = isGameTransaction;
+  transaction.createdAt = event.block.timestamp;
+  transaction.blockNumber = event.block.number.toI32();
   transaction.save();
 }

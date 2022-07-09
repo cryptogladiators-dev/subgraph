@@ -28,5 +28,7 @@ export function handleTransfer(event: Transfer): void {
   transaction.player = player.id;
   transaction.value = event.params.value;
   transaction.type = isWithdrawal ? "WITHDRAWAL" : "DEPOSIT";
+  transaction.createdAt = event.block.timestamp;
+  transaction.blockNumber = event.block.number.toI32();
   transaction.save();
 }
