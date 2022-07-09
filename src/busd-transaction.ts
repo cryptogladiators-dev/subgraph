@@ -37,6 +37,6 @@ export function handleTransfer(event: Transfer): void {
   const transaction = new BUSDTransaction(event.transaction.hash.toHex());
   transaction.player = p.id;
   transaction.value = event.params.value;
-  transaction.isWithdrawal = isWithdrawal;
+  transaction.type = isWithdrawal ? "WITHDRAWAL" : "DEPOSIT";
   transaction.save();
 }

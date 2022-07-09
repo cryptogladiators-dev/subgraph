@@ -1,3 +1,13 @@
+enum BUSDTransactionType {
+  DEPOSIT
+  WITHDRAWAL
+}
+
+enum ItemTransactionType {
+  SINGLE
+  BATCH
+}
+
 type Player @entity(immutable: true) {
   id: ID!
 }
@@ -6,7 +16,7 @@ type BUSDTransaction @entity(immutable: true) {
   id: ID!
   value: BigInt!
   player: Player!
-  isWithdrawal: Boolean!
+  type: BUSDTransactionType!
 }
 
 type ItemTransaction @entity(immutable: true) {
@@ -15,6 +25,6 @@ type ItemTransaction @entity(immutable: true) {
   to: Player!
   items: [BigInt!]!
   values: [BigInt!]!
-  isBatch: Boolean!
+  type: ItemTransactionType!
   isGameTransaction: Boolean!
 }

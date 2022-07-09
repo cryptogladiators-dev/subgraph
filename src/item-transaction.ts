@@ -5,7 +5,6 @@ import {
 } from "../generated/CryptoGladiatorsItems/CryptoGladiatorsItems";
 import { ItemTransaction, Player } from "../generated/schema";
 import { BUCKET_WALLET_ADDRESSES } from "./constants";
-
 import * as player from "./player";
 
 export function handleTransferSingle(event: TransferSingle): void {
@@ -33,7 +32,7 @@ export function handleTransferSingle(event: TransferSingle): void {
   transaction.to = to.id;
   transaction.items = [event.params.id];
   transaction.values = [event.params.value];
-  transaction.isBatch = false;
+  transaction.type = "SINGLE";
   transaction.isGameTransaction = isGameTransaction;
   transaction.save();
 }
@@ -63,7 +62,7 @@ export function handleTransferBatch(event: TransferBatch): void {
   transaction.to = to.id;
   transaction.items = event.params.ids;
   transaction.values = event.params.values;
-  transaction.isBatch = true;
+  transaction.type = "BATCH";
   transaction.isGameTransaction = isGameTransaction;
   transaction.save();
 }
