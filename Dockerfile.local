@@ -1,5 +1,10 @@
 FROM node:fermium-alpine
 
+ARG NETWORK=bsc
+ENV NETWORK ${NETWORK}
+ARG NETWORK_FILE="./contracts/networks.json"
+ENV NETWORK_FILE ${NETWORK_FILE}
+
 RUN apk add git
 
 RUN mkdir -p /opt/app
@@ -12,4 +17,4 @@ COPY . .
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.9.0/wait /wait
 RUN chmod +x /wait
 
-CMD [ "sh", "-c", "/wait && yarn clean && yarn codegen && yarn build --network bsc --network-file ./contracts/networks.json && yarn create:env && yarn deploy:env" ]
+CMD [ "sh", "-c", "/wait && yarn clean && yarn codegen && yarn create:env && yarn deploy:env" ]

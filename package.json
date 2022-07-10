@@ -7,7 +7,7 @@
     "build": "graph build",
     "create:env": "graph create --node $GRAPH_NODE_URL cryptogladiators-dev/subgraph",
     "remove:env": "graph remove --node $GRAPH_NODE_URL cryptogladiators-dev/subgraph",
-    "deploy:env": "graph deploy --node $GRAPH_NODE_URL --ipfs $IPFS_URL --version-label $VERSION_LABEL cryptogladiators-dev/subgraph",
+    "deploy:env": "graph deploy --node $GRAPH_NODE_URL --ipfs $IPFS_URL --network $NETWORK --network-file $NETWORK_FILE --version-label $VERSION_LABEL cryptogladiators-dev/subgraph",
     "create:local": "graph create --node http://localhost:8020/ cryptogladiators-dev/subgraph",
     "remove:local": "graph remove --node http://localhost:8020/ cryptogladiators-dev/subgraph",
     "deploy:local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 cryptogladiators-dev/subgraph",
