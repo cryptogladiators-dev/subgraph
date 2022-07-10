@@ -8,11 +8,19 @@ enum ItemTransactionType {
   BATCH
 }
 
+type WalletOwnedItem @entity {
+  id: ID!
+  wallet: Wallet!
+  item: Item!
+  amount: BigInt!
+}
+
 type Wallet @entity {
   id: ID!
   type: WalletType!
   paidBUSD: [BUSDTransaction!]! @derivedFrom(field: "from")
   receivedBUSD: [BUSDTransaction!]! @derivedFrom(field: "to")
+  ownedItems: [WalletOwnedItem!]! @derivedFrom(field: "wallet")
 }
 
 type BUSDTransaction @entity(immutable: true) {
