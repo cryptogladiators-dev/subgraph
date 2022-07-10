@@ -3,9 +3,17 @@ import { Wallet } from "../../generated/schema";
 import { BUCKET_WALLET_ADDRESSES } from "../constants";
 
 export function walletType(address: Address): string {
-  return BUCKET_WALLET_ADDRESSES.includes(address.toHexString())
-    ? "GAME"
-    : "PLAYER";
+  let type = "PLAYER";
+  for (let i = 0; i < BUCKET_WALLET_ADDRESSES.length; i++) {
+    if (
+      BUCKET_WALLET_ADDRESSES[i].toLowerCase() ===
+      address.toHexString().toLowerCase()
+    ) {
+      type = "GAME";
+      break;
+    }
+  }
+  return type;
 }
 
 export function loadOrCreateWallet(address: Address): Wallet {
