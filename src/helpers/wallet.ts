@@ -2,9 +2,7 @@ import { Address } from "@graphprotocol/graph-ts";
 import { Wallet } from "../../generated/schema";
 import { BUCKET_WALLET_ADDRESSES } from "../constants";
 
-type WalletType = "GAME" | "PLAYER";
-
-function walletType(address: Address): WalletType {
+function walletType(address: Address): string {
   return BUCKET_WALLET_ADDRESSES.includes(address.toHexString())
     ? "GAME"
     : "PLAYER";
