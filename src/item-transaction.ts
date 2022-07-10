@@ -3,7 +3,6 @@ import {
   TransferSingle,
 } from "../generated/CryptoGladiatorsItems/CryptoGladiatorsItems";
 import { ItemTransaction, Wallet } from "../generated/schema";
-import { BUCKET_WALLET_ADDRESSES } from "./constants";
 import { loadOrCreateWallet } from "./helpers/wallet";
 import { loadItem, mint, mintBatch } from "./helpers/item";
 import { Address } from "@graphprotocol/graph-ts";

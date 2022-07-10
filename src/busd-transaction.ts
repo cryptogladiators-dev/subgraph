@@ -1,20 +1,12 @@
 import { Transfer } from "../generated/BEP20Token/BEP20Token";
 import { BUSDTransaction, Wallet } from "../generated/schema";
-import { BUCKET_WALLET_ADDRESSES } from "./constants";
-import { loadOrCreateWallet } from "./helpers/wallet";
+import { loadOrCreateWallet, walletType } from "./helpers/wallet";
 
 export function handleTransfer(event: Transfer): void {
-  let isGameTransaction = false;
-  let isWithdrawal = false;
-
-  if (BUCKET_WALLET_ADDRESSES.includes(event.params.from.toHexString())) {
-    isGameTransaction = true;
-    isWithdrawal = true;
-  } else if (BUCKET_WALLET_ADDRESSES.includes(event.params.to.toHexString())) {
-    isGameTransaction = true;
-  }
-
-  if (!isGameTransaction) {
+  if (
+    walletType(event.params.from) !== "GAME" &&
+    walletType(event.params.to) !== "GAME"
+  ) {
     return;
   }
 
