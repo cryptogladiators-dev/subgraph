@@ -21,8 +21,8 @@ type Wallet @entity {
 type BUSDTransaction @entity(immutable: true) {
   id: ID!
   value: BigInt!
-  gameWallet: Wallet!
-  playerWallet: Wallet!
+  from: Wallet!
+  to: Wallet!
   type: BUSDTransactionType!
   createdAt: BigInt!
   blockNumber: Int!
