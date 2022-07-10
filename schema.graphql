@@ -11,6 +11,8 @@ enum ItemTransactionType {
 type Wallet @entity {
   id: ID!
   type: WalletType!
+  paidBUSD: [BUSDTransaction!]! @derivedFrom(field: "from")
+  receivedBUSD: [BUSDTransaction!]! @derivedFrom(field: "to")
 }
 
 type BUSDTransaction @entity(immutable: true) {
