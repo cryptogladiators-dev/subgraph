@@ -64,14 +64,16 @@ export function mint(id: BigInt, amount: BigInt, to: Address): Item {
     amount.equals(BigInt.fromI32(1)) ? "Item" : "Items",
     id.toString(),
   ]);
-  const item = loadItem(id);
+  let item = loadItem(id);
+  const wallet = loadOrCreateWallet(to);
   if (!item) {
-    return createItem(id, amount);
+    item = createItem(id, amount);
+    updateWalletOwnedItem(wallet, item, amount);
+    return item;
   }
   item.total = item.total.plus(amount);
   item.inStock = item.inStock.plus(amount);
   item.save();
-  const wallet = loadOrCreateWallet(to);
   updateWalletOwnedItem(wallet, item, amount);
   return item;
 }
