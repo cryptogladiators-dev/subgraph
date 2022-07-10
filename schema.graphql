@@ -1,3 +1,8 @@
+enum WalletType {
+  GAME
+  PLAYER
+}
+
 enum BUSDTransactionType {
   DEPOSIT
   WITHDRAWAL
@@ -8,14 +13,16 @@ enum ItemTransactionType {
   BATCH
 }
 
-type Player @entity(immutable: true) {
+type Wallet @entity {
   id: ID!
+  type: WalletType!
 }
 
 type BUSDTransaction @entity(immutable: true) {
   id: ID!
   value: BigInt!
-  player: Player!
+  gameWallet: Wallet!
+  playerWallet: Wallet!
   type: BUSDTransactionType!
   createdAt: BigInt!
   blockNumber: Int!
@@ -30,12 +37,11 @@ type Item @entity {
 
 type ItemTransaction @entity(immutable: true) {
   id: ID!
-  from: Player!
-  to: Player!
+  from: Wallet!
+  to: Wallet!
   items: [Item!]!
   values: [BigInt!]!
   type: ItemTransactionType!
-  isGameTransaction: Boolean!
   createdAt: BigInt!
   blockNumber: Int!
 }
