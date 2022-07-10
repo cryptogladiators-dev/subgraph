@@ -3,11 +3,6 @@ enum WalletType {
   PLAYER
 }
 
-enum BUSDTransactionType {
-  DEPOSIT
-  WITHDRAWAL
-}
-
 enum ItemTransactionType {
   SINGLE
   BATCH
@@ -23,7 +18,6 @@ type BUSDTransaction @entity(immutable: true) {
   value: BigInt!
   from: Wallet!
   to: Wallet!
-  type: BUSDTransactionType!
   createdAt: BigInt!
   blockNumber: Int!
 }
