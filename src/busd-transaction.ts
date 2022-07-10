@@ -1,8 +1,7 @@
-import { Address } from "@graphprotocol/graph-ts";
 import { Transfer } from "../generated/BEP20Token/BEP20Token";
-import { BUSDTransaction, Player } from "../generated/schema";
+import { BUSDTransaction, Wallet } from "../generated/schema";
 import { BUCKET_WALLET_ADDRESSES } from "./constants";
-import { loadOrCreatePlayer } from "./helpers/player";
+import { loadOrCreateWallet } from "./helpers/wallet";
 
 export function handleTransfer(event: Transfer): void {
   let isGameTransaction = false;
@@ -19,13 +18,12 @@ export function handleTransfer(event: Transfer): void {
     return;
   }
 
-  const playerAddress: Address = isWithdrawal
-    ? event.params.to
-    : event.params.from;
-  const player: Player = loadOrCreatePlayer(playerAddress);
+  const from: Wallet = loadOrCreateWallet(event.params.from);
+  const to: Wallet = loadOrCreateWallet(event.params.to);
 
   const transaction = new BUSDTransaction(event.transaction.hash.toHex());
-  transaction.player = player.id;
+  transaction.from = from.id;
+  transaction.to = to.id;
   transaction.value = event.params.value;
   transaction.type = isWithdrawal ? "WITHDRAWAL" : "DEPOSIT";
   transaction.createdAt = event.block.timestamp;
