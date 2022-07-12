@@ -16,4 +16,4 @@ RUN yarn --frozen-lockfile
 COPY . .
 VOLUME /opt/app/contracts
 
-CMD [ "sh", "-c", "yarn clean && yarn codegen && && yarn create:env && yarn deploy:env" ]
+CMD [ "sh", "-c", "yarn clean && yarn codegen && yarn create:env && yarn deploy:env" ]
