@@ -30,7 +30,8 @@ export function loadItem(id: BigInt): Item | null {
 export function createItem(id: BigInt, amount: BigInt): Item {
   const idHex = createItemID(id);
   const item = new Item(idHex);
-  item.total = item.inStock = amount;
+  item.total = amount;
+  item.inStock = BigInt.zero();
   item.save();
   return item;
 }
@@ -55,6 +56,14 @@ export function updateWalletOwnedItem(
     walletOwnedItem.amount = walletOwnedItem.amount.minus(amount);
   }
   walletOwnedItem.save();
+  if (wallet.type == "GAME") {
+    if (add) {
+      item.inStock = item.inStock.plus(amount);
+    } else {
+      item.inStock = item.inStock.minus(amount);
+    }
+    item.save();
+  }
   return walletOwnedItem;
 }
 
@@ -72,7 +81,6 @@ export function mint(id: BigInt, amount: BigInt, to: Address): Item {
     return item;
   }
   item.total = item.total.plus(amount);
-  item.inStock = item.inStock.plus(amount);
   item.save();
   updateWalletOwnedItem(wallet, item, amount);
   return item;
