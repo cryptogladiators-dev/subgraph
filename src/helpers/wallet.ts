@@ -6,7 +6,7 @@ export function walletType(address: Address): string {
   let type = "PLAYER";
   for (let i = 0; i < BUCKET_WALLET_ADDRESSES.length; i++) {
     if (
-      BUCKET_WALLET_ADDRESSES[i].toLowerCase() ===
+      BUCKET_WALLET_ADDRESSES[i].toLowerCase() ==
       address.toHexString().toLowerCase()
     ) {
       type = "GAME";

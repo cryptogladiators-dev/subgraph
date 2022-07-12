@@ -4,8 +4,8 @@ import { loadOrCreateWallet, walletType } from "./helpers/wallet";
 
 export function handleTransfer(event: Transfer): void {
   if (
-    walletType(event.params.from) !== "GAME" &&
-    walletType(event.params.to) !== "GAME"
+    walletType(event.params.from) == "PLAYER" &&
+    walletType(event.params.to) == "PLAYER"
   ) {
     return;
   }
