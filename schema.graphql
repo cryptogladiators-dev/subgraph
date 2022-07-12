@@ -18,18 +18,9 @@ type WalletOwnedItem @entity {
 type Wallet @entity {
   id: ID!
   type: WalletType!
-  paidBUSD: [BUSDTransaction!]! @derivedFrom(field: "from")
-  receivedBUSD: [BUSDTransaction!]! @derivedFrom(field: "to")
+  transactionsOut: [Transaction!]! @derivedFrom(field: "from")
+  transactionsIn: [Transaction!]! @derivedFrom(field: "to")
   ownedItems: [WalletOwnedItem!]! @derivedFrom(field: "wallet")
-}
-
-type BUSDTransaction @entity(immutable: true) {
-  id: ID!
-  value: BigInt!
-  from: Wallet!
-  to: Wallet!
-  createdAt: BigInt!
-  blockNumber: Int!
 }
 
 type Item @entity {
@@ -39,13 +30,30 @@ type Item @entity {
   transactions: [ItemTransaction!]! @derivedFrom(field: "items")
 }
 
-type ItemTransaction @entity(immutable: true) {
+interface Transaction {
   id: ID!
   from: Wallet!
   to: Wallet!
+  createdAt: BigInt!
+  blockNumber: Int!
+}
+
+type BUSDTransaction implements Transaction @entity(immutable: true) {
+  id: ID!
+  from: Wallet!
+  to: Wallet!
+  createdAt: BigInt!
+  blockNumber: Int!
+  value: BigInt!
+}
+
+type ItemTransaction implements Transaction @entity(immutable: true) {
+  id: ID!
+  from: Wallet!
+  to: Wallet!
+  createdAt: BigInt!
+  blockNumber: Int!
   items: [Item!]!
   values: [BigInt!]!
   type: ItemTransactionType!
-  createdAt: BigInt!
-  blockNumber: Int!
 }
