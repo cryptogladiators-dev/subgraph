@@ -8,28 +8,19 @@ import {
 import { Item, Wallet, WalletOwnedItem } from "../../generated/schema";
 import { loadOrCreateWallet } from "./wallet";
 
-function createItemID(id: BigInt): string {
-  return id
-    .toHexString()
-    .slice(2)
-    .padStart(64, "0");
-}
-
 function createWalletOwnedItemID(wallet: Wallet, item: Item): string {
   const id = ByteArray.fromHexString(wallet.id).concat(
-    ByteArray.fromHexString(item.id)
+    ByteArray.fromBigInt(BigInt.fromString(item.id))
   );
   return crypto.keccak256(id).toHexString();
 }
 
 export function loadItem(id: BigInt): Item | null {
-  const idHex = createItemID(id);
-  return Item.load(idHex);
+  return Item.load(id.toString());
 }
 
 export function createItem(id: BigInt, amount: BigInt): Item {
-  const idHex = createItemID(id);
-  const item = new Item(idHex);
+  const item = new Item(id.toString());
   item.total = amount;
   item.inStock = BigInt.zero();
   item.save();
