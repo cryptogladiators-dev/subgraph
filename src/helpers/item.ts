@@ -8,13 +8,6 @@ import {
 import { Item, Wallet, WalletOwnedItem } from "../../generated/schema";
 import { loadOrCreateWallet } from "./wallet";
 
-function createWalletOwnedItemID(wallet: Wallet, item: Item): string {
-  const id = ByteArray.fromHexString(wallet.id).concat(
-    ByteArray.fromBigInt(BigInt.fromString(item.id))
-  );
-  return crypto.keccak256(id).toHexString();
-}
-
 export function loadItem(id: BigInt): Item | null {
   return Item.load(id.toString());
 }
@@ -33,7 +26,7 @@ export function updateWalletOwnedItem(
   amount: BigInt,
   add: boolean = true
 ): WalletOwnedItem {
-  const id = createWalletOwnedItemID(wallet, item);
+  const id = `${wallet.id}-${item.id}`;
   let walletOwnedItem = WalletOwnedItem.load(id);
   if (!walletOwnedItem) {
     walletOwnedItem = new WalletOwnedItem(id);
