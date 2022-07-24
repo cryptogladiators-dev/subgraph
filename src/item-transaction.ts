@@ -14,11 +14,12 @@ import { Address } from "@graphprotocol/graph-ts";
 
 export function handleTransferSingle(event: TransferSingle): void {
   if (event.params.from.equals(Address.zero())) {
-    mint(event.params.id, event.params.value, event.params.to);
+    mint(event.params.id, event.address, event.params.value, event.params.to);
     return;
   }
 
-  const item = loadItem(event.params.id)!;
+  const idWithAddress = `${event.address.toHex()}-${event.params.id}`;
+  const item = loadItem(idWithAddress)!;
   const from: Wallet = loadOrCreateWallet(event.params.from);
   const to: Wallet = loadOrCreateWallet(event.params.to);
 
@@ -38,14 +39,20 @@ export function handleTransferSingle(event: TransferSingle): void {
 
 export function handleTransferBatch(event: TransferBatch): void {
   if (event.params.from.equals(Address.zero())) {
-    mintBatch(event.params.ids, event.params.values, event.params.to);
+    mintBatch(
+      event.params.ids,
+      event.address,
+      event.params.values,
+      event.params.to
+    );
     return;
   }
 
   const items: Item[] = [];
   const itemIds: string[] = [];
   for (let i = 0; i < event.params.ids.length; i++) {
-    const item: Item = loadItem(event.params.ids[i])!;
+    const idWithAddress = `${event.address.toHex()}-${event.params.ids[i]}`;
+    const item: Item = loadItem(idWithAddress)!;
     items.push(item);
     itemIds.push(item.id);
   }

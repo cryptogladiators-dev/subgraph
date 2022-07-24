@@ -23,7 +23,6 @@ type Wallet @entity {
   ownedItems: [WalletOwnedItem!]! @derivedFrom(field: "wallet")
 }
 
-"TODO: change id to concat contract public address"
 type Item @entity {
   id: ID!
   total: BigInt!
